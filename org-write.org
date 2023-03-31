@@ -1,0 +1,226 @@
+* org-write programmer's manual
+* Getting started
+** customize-group
+We ask the user where the directory should be put using customize-variable
+#+BEGIN_SRC elisp :tangle yes
+      (defcustom org-write-directory "~/org-write"
+	"Directory for org-write"
+	:type 'directory
+    :type 'string
+    )
+#+END_SRC
+
+#+RESULTS:
+: org-write-directory
+
+We create a function that:
+1. Creates the directory
+2. A variable that is called path that takes the value org-write-directory
+3. Goes to the path
+4. Creates 5 files with data (Summary.org, General.org, World.org, Plot.org, Editor.org
+#+BEGIN_SRC elisp :tangle yes
+	     (defun org-write-mode ()
+	       (interactive)
+	     (dired-create-directory org-write-directory)
+	     (let* ((path org-write-directory)
+		    )
+      (find-file-noselect path)
+      (create-file (concat path "/" "Summary.org") Summary)
+      (create-file (concat path "/" "General.org") General)
+      (create-file (concat path "/" "World.org" World))
+      (create-file (concat path "/" "Plot.org" Plot))
+      (create-file (concat path "/" "Editor.org" Editor))
+      ))
+
+#+END_SRC
+
+#+RESULTS:
+: org-write-mode
+Function that is used in org-write-mode and takes filename and content as it's values
+** File function
+
+#+begin_src elisp
+    (defun create-file (filename content)
+  (with-temp-file filename
+    (insert content)))
+#+end_src
+
+#+RESULTS:
+: create-file
+** File information 
+*** General
+#+begin_src elisp
+(setq General "* Book information \n #+title \n #+subtilte \n #+volume \n #+genre \n #+license \n * Author \n #+name \n #+email")
+
+#+end_src
+
+#+RESULTS:
+: * Book information 
+:  #+title 
+:  #+subtilte 
+:  #+volume 
+:  #+genre 
+:  #+license 
+:  * Author 
+:  #+name 
+:  #+email
+
+*** Summary
+
+#+begin_src elisp
+    (setq Summary "* Situation \n* Summary \n** One sentence \n** One paragraph \n** One page \n** Full")
+#+end_src
+
+#+RESULTS:
+: * Situation 
+: * Summary 
+: ** One sentence 
+: ** One paragraph 
+: ** One page 
+: ** Full
+
+*** Characters
+#+begin_src elisp :tangle yes
+  (defun Characters ()
+    (setq Characters-path (concat path "/Characters/"))
+  (dolist (Characters-subdirs '("Main" "Secondary" "Minor"))
+    (make-directory (concat Characters-path "/" Characters-subdirs))))
+
+#+end_src
+
+
+
+#+RESULTS:
+: Characters
+
+*** Plot
+#+begin_src elisp
+    (defun Plot ()
+    (setq Plot-path (concat path "/Characters/"))
+  (dolist (Plot-subdirs '("Main" "Secondary" "Minor"))
+    (make-directory (concat Plot-path "/" Plot-subdirs))))
+(setq Plot "* Main \n* Secondary \n* Minor" )
+
+#+end_src
+
+#+RESULTS:
+: * Main 
+: * Secondary 
+: * Minor
+
+*** World
+#+begin_src elisp
+(setq World "* Places \n* Cultures \n* Travel" )
+#+end_src
+*** Editor
+#+begin_src elisp
+	   (setq Editor
+  " Chapter 1 \n** Section 1 \nSection 2 \nSection 3 \nSection 4 \nSection 5
+  * Chapter 2 \n **Section 1\n Section 2 \n Section 3 \n Section 4 \n Section 5
+  * Chapter 3 \n ** Section 1 \n Section 2 \n Section 3 \n Section 4 \n Section 5
+  * Chapter 4 \n ** Section 1 \n Section 2 \n Section 3 \n Section 4 \n Section 5
+  * Chapter 5
+  * Chapter  6 \n ** Section 1 \n Section 2 \n Section 3 \n Section 4 \n Section
+  * Chapter 7 \n ** Section 1 \n Section 2 \n Section 3 \n Section 4 \n Section 5
+  * Chapter 8 \n ** Section 1 \n Section 2 \n Section 3 \n Section 4 \n Section 5
+  * Chapter 9 \n ** Section 1 \n Section 2 \n Section 3 \n Section 4 \n Section 5
+  * Chapter 10 \n ** Section 1 \n Section 2 \n Section 3 \n Section 4 \n Section 5
+  * Chapter 11 \n ** Section 1 \n Section 2 \n Section 3 \n Section 4 \n Section 5
+  * Chapter 12 \n ** Section 1 \n Section 2 \n Section 3 \n Section 4 \n Section 5" 
+		 )
+#+end_src
+** Org-templates
+We make org-templates here
+#+begin_src elisp
+  ;;  (defun org-write-templates()
+  ;;     (interactive)
+
+  ;;     (setq org-capture-templates
+  ;; 	  '(("w" "Test" entry
+  ;; 	     (file+headline "~/Documents/org/Weigh-in.org" "Daily Logs")
+  ;; 	     "*** CALin "
+  ;; 	     )))
+  ;;     (org-capture)
+  ;;     )
+  (defun org-write-templates()
+    (interactive)
+    (setq org-capture-templates
+	  '(
+	    ("M" "Character[Main]" entry
+	     (file+headline "~/Documents/org/Weigh-in.org" "Daily Logs")
+	     "** \n*** Motivation\n*** Goal \n*** Conflict \n*** Epiphany \n*** One sentence summary \n*** One paragraph summary"
+	     )
+	    ("S" "Character[Secondary]" entry
+	     (file+headline "~/Documents/org/Weigh-in.org" "Daily Logs")
+	     "** \n*** Motivation\n*** Goal \n*** Conflict \n*** Epiphany \n*** One sentence summary \n*** One paragraph summary"
+	     )
+	    ("m" "Character[Minor]" entry
+	     (file+headline "~/Documents/org/Weigh-in.org" "Daily Logs")
+	     "** \n*** Motivation\n*** Goal \n*** Conflict \n*** Epiphany \n*** One sentence summary \n*** One paragraph summary"
+	     )
+	    ("P" "Places" entry
+	     (file+headline "~/Documents/org/Weigh-in.org" "Daily Logs")
+	     "** \n*** Description"
+	     )
+	    ("C" "Cultures" entry
+	     (file+headline "~/Documents/org/Weigh-in.org" "Daily Logs")
+	     "** \n** Description"
+	     )
+	    ("T" "Travel" entry
+	     (file+headline "~/Documents/org/Weigh-in.org" "Daily Logs")
+	     "** \n*** Description"
+	     )
+	    ("p" "Plot[Main]" entry
+	     (file+headline "~/Documents/org/Weigh-in.org" "Daily Logs")
+	     "** Plot \n*** Character(s) \n*** Description \n*** Result"
+	     )
+	    ("s" "Plot[Secondary]" entry
+	     (file+headline "~/Documents/org/Weigh-in.org" "Daily Logs")
+	     "** Plot \n*** Character(s) \n*** Description \n*** Result"
+	     )
+	    ("t" "Plot[Minor]" entry
+	     (file+headline "~/Documents/org/Weigh-in.org" "Daily Logs")
+	     "** Plot \n*** Character(s) \n*** Description \n*** Result"
+	     )
+	    )
+	  )
+    (org-capture)
+    )
+#+end_src
+
+
+#+RESULTS:
+: org-write-templates
+
+# "* Chapter 1  \n * Chapter 2 \n * Chapter 2 \n * Chapter 3 \n * Chapter 4 \n * Chapter 5
+#  ,* Chapter  6 \n * Chapter 7 \n * Chapter 8 \n * Chapter 9 \n * Chapter 10 \n * Chapter 11 \n * Chapter \n 12" 
+
+#+RESULTS:
+#+begin_example
+,* Chapter 
+ ,* Chapter 
+ ,* Chapter 
+ ,* Chapter 
+ ,* Chapter 
+ ,* Chapter 
+ ,* Chapter 
+ ,* Chapter 
+ ,* Chapter 
+ ,* Chapter 
+ ,* Chapter 
+ ,* Chapter 
+ ,* Chapter 
+ ,* Chapter 
+ ,* Chapter 
+ ,* Chapter 
+ ,* Chapter 
+ ,* Chapter 
+How to increment  
+ ,* Chapter 
+ 
+ ,* Chapter 
+ 
+ ,* Chapter 
+  ,* Chapter 
+ ,* Chapter 
+#+end_example
