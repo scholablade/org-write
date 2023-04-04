@@ -9,10 +9,6 @@ We ask the user where the directory should be put using customize-variable
     :type 'string
     )
 #+END_SRC
-
-#+RESULTS:
-: org-write-directory
-
 We create a function that:
 1. Creates the directory
 2. A variable that is called path that takes the value org-write-directory
@@ -33,20 +29,14 @@ We create a function that:
       ))
 
 #+END_SRC
-
-#+RESULTS:
-: org-write-mode
 Function that is used in org-write-mode and takes filename and content as it's values
 ** File function
 
-#+begin_src elisp
+#+begin_src elisp :tangle yes
     (defun create-file (filename content)
   (with-temp-file filename
     (insert content)))
 #+end_src
-
-#+RESULTS:
-: create-file
 ** File information 
 *** General
 #+begin_src elisp
@@ -81,25 +71,19 @@ Function that is used in org-write-mode and takes filename and content as it's v
 
 *** Characters
 #+begin_src elisp :tangle yes
-  (defun Characters ()
-    (setq Characters-path (concat path "/Characters/"))
-  (dolist (Characters-subdirs '("Main" "Secondary" "Minor"))
-    (make-directory (concat Characters-path "/" Characters-subdirs))))
+  (setq Characters "* Main \n* Secondary \n* Minor")
 
 #+end_src
 
-
-
 #+RESULTS:
-: Characters
+: * Main 
+: * Secondary 
+: * Minor
 
 *** Plot
-#+begin_src elisp
-    (defun Plot ()
-    (setq Plot-path (concat path "/Characters/"))
-  (dolist (Plot-subdirs '("Main" "Secondary" "Minor"))
-    (make-directory (concat Plot-path "/" Plot-subdirs))))
-(setq Plot "* Main \n* Secondary \n* Minor" )
+#+begin_src elisp :tangle yes
+
+(setq Plot "* Main \n* Secondary \n* Minor")
 
 #+end_src
 
@@ -109,11 +93,12 @@ Function that is used in org-write-mode and takes filename and content as it's v
 : * Minor
 
 *** World
-#+begin_src elisp
+#+begin_src elisp :tangle yes
 (setq World "* Places \n* Cultures \n* Travel" )
 #+end_src
+
 *** Editor
-#+begin_src elisp
+#+begin_src elisp :tangle yes
 	   (setq Editor
   " Chapter 1 \n** Section 1 \nSection 2 \nSection 3 \nSection 4 \nSection 5
   * Chapter 2 \n **Section 1\n Section 2 \n Section 3 \n Section 4 \n Section 5
@@ -129,19 +114,10 @@ Function that is used in org-write-mode and takes filename and content as it's v
   * Chapter 12 \n ** Section 1 \n Section 2 \n Section 3 \n Section 4 \n Section 5" 
 		 )
 #+end_src
+
 ** Org-templates
 We make org-templates here
 #+begin_src elisp
-  ;;  (defun org-write-templates()
-  ;;     (interactive)
-
-  ;;     (setq org-capture-templates
-  ;; 	  '(("w" "Test" entry
-  ;; 	     (file+headline "~/Documents/org/Weigh-in.org" "Daily Logs")
-  ;; 	     "*** CALin "
-  ;; 	     )))
-  ;;     (org-capture)
-  ;;     )
   (defun org-write-templates()
     (interactive)
     (setq org-capture-templates
@@ -187,40 +163,3 @@ We make org-templates here
     (org-capture)
     )
 #+end_src
-
-
-#+RESULTS:
-: org-write-templates
-
-# "* Chapter 1  \n * Chapter 2 \n * Chapter 2 \n * Chapter 3 \n * Chapter 4 \n * Chapter 5
-#  ,* Chapter  6 \n * Chapter 7 \n * Chapter 8 \n * Chapter 9 \n * Chapter 10 \n * Chapter 11 \n * Chapter \n 12" 
-
-#+RESULTS:
-#+begin_example
-,* Chapter 
- ,* Chapter 
- ,* Chapter 
- ,* Chapter 
- ,* Chapter 
- ,* Chapter 
- ,* Chapter 
- ,* Chapter 
- ,* Chapter 
- ,* Chapter 
- ,* Chapter 
- ,* Chapter 
- ,* Chapter 
- ,* Chapter 
- ,* Chapter 
- ,* Chapter 
- ,* Chapter 
- ,* Chapter 
-How to increment  
- ,* Chapter 
- 
- ,* Chapter 
- 
- ,* Chapter 
-  ,* Chapter 
- ,* Chapter 
-#+end_example
