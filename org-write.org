@@ -1,8 +1,9 @@
 * org-write programmer's manual
 * Getting started
+#+PROPERTY: header-args :tangle yes
 ** customize-group
 We ask the user where the directory should be put using customize-variable
-#+BEGIN_SRC elisp :tangle yes
+#+BEGIN_SRC elisp 
       (defcustom org-write-directory "~/org-write"
 	"Directory for org-write"
 	:type 'directory
@@ -14,25 +15,24 @@ We create a function that:
 2. A variable that is called path that takes the value org-write-directory
 3. Goes to the path
 4. Creates 5 files with data (Summary.org, General.org, World.org, Plot.org, Editor.org
-#+BEGIN_SRC elisp :tangle yes
-	     (defun org-write-mode ()
-	       (interactive)
-	     (dired-create-directory org-write-directory)
-	     (let* ((path org-write-directory)
-		    )
-      (find-file-noselect path)
-      (create-file (concat path "/" "Summary.org") Summary)
-      (create-file (concat path "/" "General.org") General)
-      (create-file (concat path "/" "World.org" World))
-      (create-file (concat path "/" "Plot.org" Plot))
-      (create-file (concat path "/" "Editor.org" Editor))
-      ))
-
+#+BEGIN_SRC elisp 
+	 (defun org-write-mode ()
+	   (interactive)
+	 (dired-create-directory org-write-directory)
+	 (let* ((path org-write-directory)
+		)
+  (find-file-noselect path)
+  (create-file (concat path "/" "Summary.org") Summary)
+  (create-file (concat path "/" "General.org") General)
+  (create-file (concat path "/" "World.org" World))
+  (create-file (concat path "/" "Plot.org" Plot))
+  (create-file (concat path "/" "Editor.org" Editor))
+  ))
 #+END_SRC
 Function that is used in org-write-mode and takes filename and content as it's values
 ** File function
 
-#+begin_src elisp :tangle yes
+#+begin_src elisp 
     (defun create-file (filename content)
   (with-temp-file filename
     (insert content)))
@@ -70,7 +70,7 @@ Function that is used in org-write-mode and takes filename and content as it's v
 : ** Full
 
 *** Characters
-#+begin_src elisp :tangle yes
+#+begin_src elisp 
   (setq Characters "* Main \n* Secondary \n* Minor")
 
 #+end_src
@@ -81,7 +81,7 @@ Function that is used in org-write-mode and takes filename and content as it's v
 : * Minor
 
 *** Plot
-#+begin_src elisp :tangle yes
+#+begin_src elisp 
 
 (setq Plot "* Main \n* Secondary \n* Minor")
 
@@ -93,12 +93,12 @@ Function that is used in org-write-mode and takes filename and content as it's v
 : * Minor
 
 *** World
-#+begin_src elisp :tangle yes
+#+begin_src elisp 
 (setq World "* Places \n* Cultures \n* Travel" )
 #+end_src
 
 *** Editor
-#+begin_src elisp :tangle yes
+#+begin_src elisp 
 	   (setq Editor
   " Chapter 1 \n** Section 1 \nSection 2 \nSection 3 \nSection 4 \nSection 5
   * Chapter 2 \n **Section 1\n Section 2 \n Section 3 \n Section 4 \n Section 5
