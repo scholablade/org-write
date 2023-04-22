@@ -10,33 +10,46 @@ We ask the user where the directory should be put using customize-variable
     :type 'string
     )
 #+END_SRC
+
+#+RESULTS:
+: org-write-directory
+
 We create a function that:
 1. Creates the directory
 2. A variable that is called path that takes the value org-write-directory
 3. Goes to the path
-4. Creates 5 files with data (Summary.org, General.org, World.org, Plot.org, Editor.org
-#+BEGIN_SRC elisp 
-	 (defun org-write-mode ()
-	   (interactive)
-	 (dired-create-directory org-write-directory)
-	 (let* ((path org-write-directory)
-		)
-  (find-file-noselect path)
-  (create-file (concat path "/" "Summary.org") Summary)
-  (create-file (concat path "/" "General.org") General)
-  (create-file (concat path "/" "World.org" World))
-  (create-file (concat path "/" "Plot.org" Plot))
-  (create-file (concat path "/" "Editor.org" Editor))
-  ))
+4. Creates 5 files with data (Summary.org, General.org, World.org, Plot.org, Editor.org)
+#+BEGIN_SRC elisp
+  (defun org-write-mode ()
+    (interactive)
+    (dired-create-directory org-write-directory)
+    (let* ((path org-write-directory)
+	   )
+      (find-file-noselect path)
+      (create-file (concat path "/" "Summary.org") Summary)
+      (create-file (concat path "/" "Characters.org") Characters)
+      (create-file (concat path "/" "General.org") General)
+      (create-file (concat path "/" "World.org") World)
+      (create-file (concat path "/" "Plot.org") Plot)
+      (create-file (concat path "/" "Editor.org") Editor)
+      ))
 #+END_SRC
+
+#+RESULTS:
+: org-write-mode
+
 Function that is used in org-write-mode and takes filename and content as it's values
 ** File function
 
-#+begin_src elisp 
+#+begin_src elisp
     (defun create-file (filename content)
   (with-temp-file filename
     (insert content)))
 #+end_src
+
+#+RESULTS:
+: create-file
+
 ** File information 
 *** General
 #+begin_src elisp
@@ -70,7 +83,7 @@ Function that is used in org-write-mode and takes filename and content as it's v
 : ** Full
 
 *** Characters
-#+begin_src elisp 
+#+begin_src elisp
   (setq Characters "* Main \n* Secondary \n* Minor")
 
 #+end_src
@@ -81,7 +94,7 @@ Function that is used in org-write-mode and takes filename and content as it's v
 : * Minor
 
 *** Plot
-#+begin_src elisp 
+#+begin_src elisp
 
 (setq Plot "* Main \n* Secondary \n* Minor")
 
@@ -93,73 +106,156 @@ Function that is used in org-write-mode and takes filename and content as it's v
 : * Minor
 
 *** World
-#+begin_src elisp 
+#+begin_src elisp
 (setq World "* Places \n* Cultures \n* Travel" )
 #+end_src
 
+#+RESULTS:
+: * Places 
+: * Cultures 
+: * Travel
+
 *** Editor
-#+begin_src elisp 
-	   (setq Editor
-  " Chapter 1 \n** Section 1 \nSection 2 \nSection 3 \nSection 4 \nSection 5
-  * Chapter 2 \n **Section 1\n Section 2 \n Section 3 \n Section 4 \n Section 5
-  * Chapter 3 \n ** Section 1 \n Section 2 \n Section 3 \n Section 4 \n Section 5
-  * Chapter 4 \n ** Section 1 \n Section 2 \n Section 3 \n Section 4 \n Section 5
-  * Chapter 5
-  * Chapter  6 \n ** Section 1 \n Section 2 \n Section 3 \n Section 4 \n Section
-  * Chapter 7 \n ** Section 1 \n Section 2 \n Section 3 \n Section 4 \n Section 5
-  * Chapter 8 \n ** Section 1 \n Section 2 \n Section 3 \n Section 4 \n Section 5
-  * Chapter 9 \n ** Section 1 \n Section 2 \n Section 3 \n Section 4 \n Section 5
-  * Chapter 10 \n ** Section 1 \n Section 2 \n Section 3 \n Section 4 \n Section 5
-  * Chapter 11 \n ** Section 1 \n Section 2 \n Section 3 \n Section 4 \n Section 5
-  * Chapter 12 \n ** Section 1 \n Section 2 \n Section 3 \n Section 4 \n Section 5" 
-		 )
+#+begin_src elisp
+  (setq Editor
+	" Chapter 1 \n** Section 1 \nSection 2 \nSection 3 \nSection 4 \nSection 5
+  ,* Chapter 2 \n **Section 1\n Section 2 \n Section 3 \n Section 4 \n Section 5
+  ,* Chapter 3 \n ** Section 1 \n Section 2 \n Section 3 \n Section 4 \n Section 5
+  ,* Chapter 4 \n ** Section 1 \n Section 2 \n Section 3 \n Section 4 \n Section 5
+  ,* Chapter 5
+  ,* Chapter  6 \n ** Section 1 \n Section 2 \n Section 3 \n Section 4 \n Section
+  ,* Chapter 7 \n ** Section 1 \n Section 2 \n Section 3 \n Section 4 \n Section 5
+  ,* Chapter 8 \n ** Section 1 \n Section 2 \n Section 3 \n Section 4 \n Section 5
+  ,* Chapter 9 \n ** Section 1 \n Section 2 \n Section 3 \n Section 4 \n Section 5
+  ,* Chapter 10 \n ** Section 1 \n Section 2 \n Section 3 \n Section 4 \n Section 5
+  ,* Chapter 11 \n ** Section 1 \n Section 2 \n Section 3 \n Section 4 \n Section 5
+  ,* Chapter 12 \n ** Section 1 \n Section 2 \n Section 3 \n Section 4 \n Section 5" 
+	)
 #+end_src
+
+#+RESULTS:
+#+begin_example
+ Chapter 1 
+,** Section 1 
+Section 2 
+Section 3 
+Section 4 
+Section 5
+,* Chapter 2 
+ ,**Section 1
+ Section 2 
+ Section 3 
+ Section 4 
+ Section 5
+,* Chapter 3 
+ ,** Section 1 
+ Section 2 
+ Section 3 
+ Section 4 
+ Section 5
+,* Chapter 4 
+ ,** Section 1 
+ Section 2 
+ Section 3 
+ Section 4 
+ Section 5
+,* Chapter 5
+,* Chapter  6 
+ ,** Section 1 
+ Section 2 
+ Section 3 
+ Section 4 
+ Section
+,* Chapter 7 
+ ,** Section 1 
+ Section 2 
+ Section 3 
+ Section 4 
+ Section 5
+,* Chapter 8 
+ ,** Section 1 
+ Section 2 
+ Section 3 
+ Section 4 
+ Section 5
+,* Chapter 9 
+ ,** Section 1 
+ Section 2 
+ Section 3 
+ Section 4 
+ Section 5
+,* Chapter 10 
+ ,** Section 1 
+ Section 2 
+ Section 3 
+ Section 4 
+ Section 5
+,* Chapter 11 
+ ,** Section 1 
+ Section 2 
+ Section 3 
+ Section 4 
+ Section 5
+,* Chapter 12 
+ ,** Section 1 
+ Section 2 
+ Section 3 
+ Section 4 
+ Section 5
+#+end_example
 
 ** Org-templates
 We make org-templates here
 #+begin_src elisp
+  (setq var_character (concat org-write-directory "/" "Characters.org"))
+  (setq var_world (concat org-write-directory "/" "World.org"))
+  (setq var_plot (concat org-write-directory "/" "Plot.org"))
   (defun org-write-templates()
     (interactive)
     (setq org-capture-templates
-	  '(
+	  '( 
 	    ("M" "Character[Main]" entry
-	     (file+headline "~/Documents/org/Weigh-in.org" "Daily Logs")
+	     (file+headline var_character "Main")
 	     "** \n*** Motivation\n*** Goal \n*** Conflict \n*** Epiphany \n*** One sentence summary \n*** One paragraph summary"
 	     )
-	    ("S" "Character[Secondary]" entry
-	     (file+headline "~/Documents/org/Weigh-in.org" "Daily Logs")
-	     "** \n*** Motivation\n*** Goal \n*** Conflict \n*** Epiphany \n*** One sentence summary \n*** One paragraph summary"
-	     )
-	    ("m" "Character[Minor]" entry
-	     (file+headline "~/Documents/org/Weigh-in.org" "Daily Logs")
-	     "** \n*** Motivation\n*** Goal \n*** Conflict \n*** Epiphany \n*** One sentence summary \n*** One paragraph summary"
-	     )
-	    ("P" "Places" entry
-	     (file+headline "~/Documents/org/Weigh-in.org" "Daily Logs")
-	     "** \n*** Description"
-	     )
-	    ("C" "Cultures" entry
-	     (file+headline "~/Documents/org/Weigh-in.org" "Daily Logs")
-	     "** \n** Description"
-	     )
-	    ("T" "Travel" entry
-	     (file+headline "~/Documents/org/Weigh-in.org" "Daily Logs")
-	     "** \n*** Description"
-	     )
-	    ("p" "Plot[Main]" entry
-	     (file+headline "~/Documents/org/Weigh-in.org" "Daily Logs")
-	     "** Plot \n*** Character(s) \n*** Description \n*** Result"
-	     )
-	    ("s" "Plot[Secondary]" entry
-	     (file+headline "~/Documents/org/Weigh-in.org" "Daily Logs")
-	     "** Plot \n*** Character(s) \n*** Description \n*** Result"
-	     )
-	    ("t" "Plot[Minor]" entry
-	     (file+headline "~/Documents/org/Weigh-in.org" "Daily Logs")
-	     "** Plot \n*** Character(s) \n*** Description \n*** Result"
-	     )
+	     	  ("S" "Character[Secondary]" entry
+	     	   (file+headline var_character "Secondary")
+	     	   "** \n*** Motivation\n*** Goal \n*** Conflict \n*** Epiphany \n*** One sentence summary \n*** One paragraph summary"
+	     	   )
+	     	  ("m" "Character[Minor]" entry
+	     	   (file+headline var_character "Minor")
+	     	   "** \n*** Motivation\n*** Goal \n*** Conflict \n*** Epiphany \n*** One sentence summary \n*** One paragraph summary"
+	     	   )
+	     	  ("P" "Places" entry
+	     	   (file+headline var_world "Places")
+	     	   "** \n*** Description"
+	     	   )
+	     	  ("C" "Cultures" entry
+	     	   (file+headline "Cultures")
+	     	   "** \n** Description"
+	     	   )
+	     	  ("T" "Travel" entry
+	     	   (file+headline var_world "Travel")
+	     	   "** \n*** Description"
+	     	   )
+	     	  ("p" "Plot[Main]" entry
+	     	   (file+headline var_plot "Main")
+	     	   "** Plot \n*** Character(s) \n*** Description \n*** Result"
+	     	   )
+	     	  ("s" "Plot[Secondary]" entry
+	     	   (file+headline var_plot "Secondary")
+	     	   "** Plot \n*** Character(s) \n*** Description \n*** Result"
+	     	   )
+	     	  ("t" "Plot[Minor]" entry
+	     	   (file+headline var_plot "Minor")
+	     	   "** Plot \n*** Character(s) \n*** Description \n*** Result"
+	     	   )
 	    )
 	  )
     (org-capture)
     )
 #+end_src
+
+#+RESULTS:
+: org-write-templates
+
