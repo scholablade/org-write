@@ -1,6 +1,6 @@
 * org-write programmer's manual
 * Getting started
-#+PROPERTY: header-args :tangle yes
+#+PROPERTY: header-args :tangle yes :results silent
 ** customize-group
 We ask the user where the directory should be put using customize-variable
 #+BEGIN_SRC elisp 
@@ -10,10 +10,6 @@ We ask the user where the directory should be put using customize-variable
     :type 'string
     )
 #+END_SRC
-
-#+RESULTS:
-: org-write-directory
-
 We create a function that:
 1. Creates the directory
 2. A variable that is called path that takes the value org-write-directory
@@ -35,8 +31,7 @@ We create a function that:
       ))
 #+END_SRC
 
-#+RESULTS:
-: org-write-mode
+
 
 Function that is used in org-write-mode and takes filename and content as it's values
 ** File function
@@ -47,9 +42,6 @@ Function that is used in org-write-mode and takes filename and content as it's v
     (insert content)))
 #+end_src
 
-#+RESULTS:
-: create-file
-
 ** File information 
 *** General
 #+begin_src elisp
@@ -57,16 +49,6 @@ Function that is used in org-write-mode and takes filename and content as it's v
 
 #+end_src
 
-#+RESULTS:
-: * Book information 
-:  #+title 
-:  #+subtilte 
-:  #+volume 
-:  #+genre 
-:  #+license 
-:  * Author 
-:  #+name 
-:  #+email
 
 *** Summary
 
@@ -74,24 +56,12 @@ Function that is used in org-write-mode and takes filename and content as it's v
     (setq Summary "* Situation \n* Summary \n** One sentence \n** One paragraph \n** One page \n** Full")
 #+end_src
 
-#+RESULTS:
-: * Situation 
-: * Summary 
-: ** One sentence 
-: ** One paragraph 
-: ** One page 
-: ** Full
 
 *** Characters
 #+begin_src elisp
   (setq Characters "* Main \n* Secondary \n* Minor")
 
 #+end_src
-
-#+RESULTS:
-: * Main 
-: * Secondary 
-: * Minor
 
 *** Plot
 #+begin_src elisp
@@ -100,20 +70,10 @@ Function that is used in org-write-mode and takes filename and content as it's v
 
 #+end_src
 
-#+RESULTS:
-: * Main 
-: * Secondary 
-: * Minor
-
 *** World
 #+begin_src elisp
 (setq World "* Places \n* Cultures \n* Travel" )
 #+end_src
-
-#+RESULTS:
-: * Places 
-: * Cultures 
-: * Travel
 
 *** Editor
 #+begin_src elisp
@@ -132,77 +92,6 @@ Function that is used in org-write-mode and takes filename and content as it's v
   ,* Chapter 12 \n ** Section 1 \n Section 2 \n Section 3 \n Section 4 \n Section 5" 
 	)
 #+end_src
-
-#+RESULTS:
-#+begin_example
- Chapter 1 
-,** Section 1 
-Section 2 
-Section 3 
-Section 4 
-Section 5
-,* Chapter 2 
- ,**Section 1
- Section 2 
- Section 3 
- Section 4 
- Section 5
-,* Chapter 3 
- ,** Section 1 
- Section 2 
- Section 3 
- Section 4 
- Section 5
-,* Chapter 4 
- ,** Section 1 
- Section 2 
- Section 3 
- Section 4 
- Section 5
-,* Chapter 5
-,* Chapter  6 
- ,** Section 1 
- Section 2 
- Section 3 
- Section 4 
- Section
-,* Chapter 7 
- ,** Section 1 
- Section 2 
- Section 3 
- Section 4 
- Section 5
-,* Chapter 8 
- ,** Section 1 
- Section 2 
- Section 3 
- Section 4 
- Section 5
-,* Chapter 9 
- ,** Section 1 
- Section 2 
- Section 3 
- Section 4 
- Section 5
-,* Chapter 10 
- ,** Section 1 
- Section 2 
- Section 3 
- Section 4 
- Section 5
-,* Chapter 11 
- ,** Section 1 
- Section 2 
- Section 3 
- Section 4 
- Section 5
-,* Chapter 12 
- ,** Section 1 
- Section 2 
- Section 3 
- Section 4 
- Section 5
-#+end_example
 
 ** Org-templates
 We make org-templates here
@@ -255,7 +144,4 @@ We make org-templates here
     (org-capture)
     )
 #+end_src
-
-#+RESULTS:
-: org-write-templates
 
