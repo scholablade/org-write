@@ -144,4 +144,17 @@ We make org-templates here
     (org-capture)
     )
 #+end_src
-
+** Tools for writing
+In manuskript there are three tools to help you write better:
+- Spellchecker
+- Frequency analyzer
+- Dictionary
+*** Spellchecker
+The spellchecker in manuskript highlights with red potential mistakes that the writer might have made, grammatically speaking.
+Thankfully there is a built-in package that facilitates this feature, therefore:
+1. we only need to provide an alias for simplicity sake.
+2. Activate the mode.
+#+begin_src elisp
+  (defalias 'org-write-spellcheker 'flyspell-mode)
+#+end_src
+# TODO: Make a mode for Org-write

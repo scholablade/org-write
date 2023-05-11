@@ -94,3 +94,5 @@
 	)
   (org-capture)
   )
+
+(defalias 'org-write-spellcheker 'flyspell-mode)
